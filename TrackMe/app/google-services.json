@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "598975075632",
+    "firebase_url": "https://tracking-daily-activity.firebaseio.com",
+    "project_id": "tracking-daily-activity",
+    "storage_bucket": "tracking-daily-activity.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:598975075632:android:1992d891c8b68c9e",
+        "android_client_info": {
+          "package_name": "com.example.pradeepsaiuppula.TrackMe"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "598975075632-qvr2jh7nfhpg3108l1j6ms5rmpbvd6vk.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDv9lxmzp152o9LjwHwgzCitt_ZWcWOlqM"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "598975075632-qvr2jh7nfhpg3108l1j6ms5rmpbvd6vk.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
