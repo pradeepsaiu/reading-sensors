@@ -81,17 +81,20 @@ public class CollectorService extends Service implements SensorEventListener{
 
         if(event.sensor.getType()==sensor.TYPE_ACCELEROMETER){
             acceleration.setData(event.values[0],event.values[1],event.values[2]);
+            d.upload_accel(acceleration);
         }
         if(event.sensor.getType()==sensor.TYPE_GYROSCOPE){
             gyroscope.setData(event.values[0],event.values[1],event.values[2]);
+            d.upload_gyro(gyroscope);
         }
         if(event.sensor.getType() == sensor.TYPE_STEP_COUNTER){
             stepCounter.setData(event.values[0]);
+            d.upload_step(stepCounter);
         }
         Log.d("hi","debug");
 
 
-        d.upload(acceleration,gyroscope,stepCounter);
+
     }
 
     @Override

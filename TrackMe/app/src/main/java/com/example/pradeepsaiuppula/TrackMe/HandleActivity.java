@@ -23,6 +23,8 @@ public class HandleActivity extends IntentService {
      *
      * @param name Used to name the worker thread, important only for debugging.
      */
+    UploadData d=new UploadData();
+
     public HandleActivity(String name) {
         super(name);
     }
@@ -40,45 +42,60 @@ public class HandleActivity extends IntentService {
     }
 
     private void handleDetectedActivities(List<DetectedActivity> probableActivities) {
+        int Threshold=75;
         for( DetectedActivity activity : probableActivities ) {
             switch( activity.getType() ) {
                 case DetectedActivity.IN_VEHICLE: {
                     Log.e( "ActivityRecogition", "In Vehicle: " + activity.getConfidence() );
+                    if( activity.getConfidence() >= Threshold ) {
+                        d.upload_activity("drving"+activity.getConfidence());
+                    }
                     break;
                 }
                 case DetectedActivity.ON_BICYCLE: {
                     Log.e( "ActivityRecogition", "On Bicycle: " + activity.getConfidence() );
+                    if( activity.getConfidence() >= Threshold ) {
+                        d.upload_activity("on_bicycle" + activity.getConfidence());
+                    }
                     break;
                 }
                 case DetectedActivity.ON_FOOT: {
                     Log.e( "ActivityRecogition", "On Foot: " + activity.getConfidence() );
+                    if( activity.getConfidence() >= Threshold ) {
+                        d.upload_activity("ON_FOOT"+activity.getConfidence());
+                    }
                     break;
                 }
                 case DetectedActivity.RUNNING: {
                     Log.e( "ActivityRecogition", "Running: " + activity.getConfidence() );
+                    if( activity.getConfidence() >= Threshold ) {
+                        d.upload_activity("running"+activity.getConfidence());
+                    }
                     break;
                 }
                 case DetectedActivity.STILL: {
                     Log.e( "ActivityRecogition", "Still: " + activity.getConfidence() );
+                    if( activity.getConfidence() >= Threshold ) {
+                        d.upload_activity("still"+activity.getConfidence());
+                    }
                     break;
                 }
-                case DetectedActivity.TILTING: {
-                    Log.e( "ActivityRecogition", "Tilting: " + activity.getConfidence() );
-                    break;
-                }
+//                case DetectedActivity.TILTING: {
+//                    Log.e( "ActivityRecogition", "Tilting: " + activity.getConfidence() );
+//                    break;
+//                }
                 case DetectedActivity.WALKING: {
                     Log.e( "ActivityRecogition", "Walking: " + activity.getConfidence() );
-                    if( activity.getConfidence() >= 75 ) {
-                        NotificationCompat.Builder builder = new NotificationCompat.Builder(this);
-                        builder.setContentText( "Are you walking?" );
-                        builder.setSmallIcon( R.mipmap.ic_launcher );
-                        builder.setContentTitle( getString( R.string.app_name ) );
-                        NotificationManagerCompat.from(this).notify(0, builder.build());
+                    if( activity.getConfidence() >= Threshold ) {
+                        d.upload_activity("walking"+activity.getConfidence());
                     }
                     break;
                 }
                 case DetectedActivity.UNKNOWN: {
                     Log.e( "ActivityRecogition", "Unknown: " + activity.getConfidence() );
+                    if( activity.getConfidence() >= Threshold ) {
+                        d.upload_activity("unknown" + activity.getConfidence());
+                    }
                     break;
                 }
             }

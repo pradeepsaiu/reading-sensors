@@ -22,23 +22,31 @@ public class UploadData {
     DatabaseReference ref = db.getReference("");
     long logTime = System.currentTimeMillis();
 
-    public void upload(Accelerometer a,Gyroscope g,StepCounter s){
-
-//            String temp_time=String.format("%.2f", (System.currentTimeMillis() - logTime) / 1000.0f);
+    public void upload_accel(Accelerometer a){
             String temp_time = System.currentTimeMillis() +"";
-            ref.child(temp_time).child("acceleration").setValue(a);
-            ref.child(temp_time).child("gyroscope").setValue(g);
-            ref.child(temp_time).child("stepcount").setValue(s);
+            ref.child("AGS").child("acceleration").child(temp_time).setValue(a);
+    }
+    public void upload_gyro(Gyroscope g){
+        String temp_time = System.currentTimeMillis() +"";
+        ref.child("AGS").child("gyroscope").child(temp_time).setValue(g);
+    }
+    public void upload_step(StepCounter s){
+        String temp_time = System.currentTimeMillis() +"";
+        ref.child("AGS").child("stepcount").child(temp_time).setValue(s);
     }
     public void upload_gps(Location l){
-
-//            String temp_time=String.format("%.2f", (System.currentTimeMillis() - logTime) / 1000.0f);
         String temp_time = System.currentTimeMillis() +"";
         ref.child("Location").child(temp_time).setValue(l);
         //ref.setValue("Uncomment to erase the entire database.");
     }
-    public void upload_activity(int val){
-        ref.child("Activity").setValue(val);
+    public void upload_activity(String val){
+        String temp_time = System.currentTimeMillis() +"";
+        ref.child("Activity").child(temp_time).setValue(val);
+    }
+
+    public void upload_test(String test){
+        String temp_time = System.currentTimeMillis() +"";
+        ref.child("test").child(temp_time).setValue(test);
     }
 
     public void clear_db(){
