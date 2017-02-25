@@ -63,7 +63,7 @@ public class CollectorService extends Service implements SensorEventListener{
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             sensor = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
         }
-        sensorManager.registerListener(this, sensor, SensorManager.SENSOR_DELAY_NORMAL);
+        sensorManager.registerListener(this, sensor,SensorManager.SENSOR_DELAY_NORMAL);
 
         sensor = sensorManager.getDefaultSensor(Sensor.TYPE_GYROSCOPE);
         sensorManager.registerListener(this, sensor, SensorManager.SENSOR_DELAY_NORMAL);

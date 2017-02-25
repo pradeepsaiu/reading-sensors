@@ -24,15 +24,15 @@ public class UploadData {
 
     public void upload_accel(Accelerometer a){
             String temp_time = System.currentTimeMillis() +"";
-            ref.child("AGS").child("acceleration").child(temp_time).setValue(a);
+            ref.child("acceleration").child(temp_time).setValue(a);
     }
     public void upload_gyro(Gyroscope g){
         String temp_time = System.currentTimeMillis() +"";
-        ref.child("AGS").child("gyroscope").child(temp_time).setValue(g);
+        ref.child("gyroscope").child(temp_time).setValue(g);
     }
     public void upload_step(StepCounter s){
         String temp_time = System.currentTimeMillis() +"";
-        ref.child("AGS").child("stepcount").child(temp_time).setValue(s);
+        ref.child("stepcount").child(temp_time).setValue(s);
     }
     public void upload_gps(Location l){
         String temp_time = System.currentTimeMillis() +"";

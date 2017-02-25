@@ -101,4 +101,9 @@ public class HandleActivity extends IntentService {
             }
         }
     }
+    @Override
+    public void onDestroy() {
+        stopSelf();
+        super.onDestroy();
+    }
 }

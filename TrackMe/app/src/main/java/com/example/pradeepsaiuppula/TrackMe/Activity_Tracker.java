@@ -87,4 +87,11 @@ public class Activity_Tracker extends Service implements  GoogleApiClient.Connec
     public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
 
     }
+
+    @Override
+    public void onDestroy() {
+        mApiClient.disconnect();
+        stopSelf();
+        super.onDestroy();
+    }
 }

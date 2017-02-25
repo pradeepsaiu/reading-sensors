@@ -10,60 +10,57 @@ import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
 import android.os.IBinder;
+import android.provider.Settings;
 import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
 import android.util.Log;
+import android.widget.Toast;
 
 /**
  * Created by pradeepsaiuppula on 2/9/17.
  */
+public class LocationReciever extends Service  {
 
-public class LocationReciever extends Service {
+    private final static String tag = "TestGps";
 
+    private static int RATE = 100;  //100 -> 10 samples/s 50 -> 20 samples/s 20 -> 50 samples/s
     UploadData d = new UploadData();
+    private LocationManager locationManager;
+    private double latitude, longitude;
+//    private static Double longitude= new Double(0.0);
 
-    LocationManager locationManager = (LocationManager) this.getSystemService(Context.LOCATION_SERVICE);
-    // Define a listener that responds to location updates
-    LocationListener locationListener = new LocationListener() {
-        public void onLocationChanged(Location location) {
-            // Called when a new location is found by the network location provider.
-            makeUseOfNewLocation(location);
-            d.upload_gps(location);
-//            Log.d("location",""+location.getLatitude()+" ----"+location.getLongitude());
-        }
 
-        public void onStatusChanged(String provider, int status, Bundle extras) {
-        }
 
-        public void onProviderEnabled(String provider) {
-        }
-
-        public void onProviderDisabled(String provider) {
-        }
+    private static final String[] INITIAL_PERMS = {
+            Manifest.permission.ACCESS_FINE_LOCATION,
+            Manifest.permission.READ_CONTACTS
     };
 
-    @Override
-    public int onStartCommand(Intent intent, int flags, int startId) {
+//    Timer timer;
 
-        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            // TODO: Consider calling
-            //    ActivityCompat#requestPermissions
-            // here to request the missing permissions, and then overriding
-            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
-            //                                          int[] grantResults)
-            // to handle the case where the user grants the permission. See the documentation
-            // for ActivityCompat#requestPermissions for more details.
-//            return TODO;
+
+    LocationListener locationListener = new LocationListener() {
+        @Override
+        public void onLocationChanged(Location location) {
+            d.upload_gps(location);
         }
-        // Register the listener with the Location Manager to receive location updates
 
+        @Override
+        public void onStatusChanged(String provider, int status, Bundle extras) {
 
-        locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, locationListener);
-//        Uncomment below line when sim card is available.
-//        locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 0, 0, locationListener);
+        }
 
-        return super.onStartCommand(intent, flags, startId);
-    }
+        @Override
+        public void onProviderEnabled(String provider) {
+
+        }
+
+        @Override
+        public void onProviderDisabled(String provider) {
+            Intent intent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
+            startActivity(intent);
+        }
+    };
 
     @Nullable
     @Override
@@ -71,8 +68,33 @@ public class LocationReciever extends Service {
         return null;
     }
 
-    public void makeUseOfNewLocation(Location l){
+    @Override
+    public int onStartCommand(Intent intent, int flags, int startId) {
 
+        locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+
+        try {
+            locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 1000, 0, locationListener);
+//            locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 1000, 0, locationListener);
+        }
+        catch(SecurityException e){
+            e.getStackTrace();
+        }
+
+        return START_STICKY;
+    }
+
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+//        timer.cancel();
+        try {
+            locationManager.removeUpdates(locationListener);
+        }
+        catch(SecurityException e) {
+            e.getStackTrace();
+        }
     }
 
 }

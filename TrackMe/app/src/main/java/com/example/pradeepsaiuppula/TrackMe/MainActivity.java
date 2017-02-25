@@ -45,8 +45,8 @@ public class MainActivity extends AppCompatActivity {
         //Starting the background service
         startService(new Intent(getBaseContext(), CollectorService.class));
         startService(new Intent(getBaseContext(), Activity_Tracker.class));
-//        startService(new Intent(getBaseContext(), LocationReciever.class));
-//        Are u sure you want to clear the database?
+        startService(new Intent(getBaseContext(), LocationReciever.class));
+////        Are u sure you want to clear the database?
 //        Log.e("db","clearing the database");
 //        UploadData d = new UploadData();
 //         d.clear_db();
@@ -60,6 +60,7 @@ public class MainActivity extends AppCompatActivity {
         stopService(new Intent(getBaseContext(), LocationReciever.class));
         stopService(new Intent(getBaseContext(), HandleActivity.class));
         stopService(new Intent(getBaseContext(), CollectorService.class));
+
     }
 
 }
