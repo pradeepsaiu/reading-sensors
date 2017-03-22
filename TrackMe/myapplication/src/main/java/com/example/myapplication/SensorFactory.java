@@ -14,9 +14,6 @@ public class SensorFactory {
         else if(sensor_name.equalsIgnoreCase("gyroscope")){
             return  new Gyroscope();
         }
-        else if(sensor_name.equalsIgnoreCase("stepcount")){
-            return  new StepCounter();
-        }
         return null;
     }
 }

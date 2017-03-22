@@ -42,7 +42,7 @@ public class HandleActivity extends IntentService {
     }
 
     private void handleDetectedActivities(List<DetectedActivity> probableActivities) {
-        int Threshold=75;
+        int Threshold=0;
         for( DetectedActivity activity : probableActivities ) {
             switch( activity.getType() ) {
                 case DetectedActivity.IN_VEHICLE: {

@@ -2,21 +2,15 @@ package com.example.myapplication;
 
 import android.app.Service;
 import android.content.Intent;
-import android.hardware.*;
 import android.hardware.Sensor;
+import android.hardware.SensorEvent;
+import android.hardware.SensorEventListener;
+import android.hardware.SensorManager;
 import android.os.Build;
 import android.os.IBinder;
 import android.support.annotation.Nullable;
-import android.support.v7.app.NotificationCompat;
 import android.util.Log;
 import android.widget.Toast;
-
-import com.example.pradeepsaiuppula.myapplication.R;
-import com.google.android.gms.awareness.fence.DetectedActivityFence;
-import com.google.android.gms.awareness.snapshot.DetectedActivityResult;
-import com.google.android.gms.location.ActivityRecognition;
-import com.google.android.gms.location.ActivityRecognitionResult;
-import com.google.android.gms.location.DetectedActivity;
 
 /**
  * Created by pradeepsaiuppula on 2/5/17.
@@ -75,10 +69,7 @@ public class CollectorService extends Service implements SensorEventListener{
             gyroscope.setData(event.values[0],event.values[1],event.values[2]);
             d.upload_gyro(gyroscope);
         }
-        if(event.sensor.getType() == sensor.TYPE_STEP_COUNTER){
-            stepCounter.setData(event.values[0]);
-            d.upload_step(stepCounter);
-        }
+        
         Log.d("hi","debug");
 
 

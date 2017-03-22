@@ -32,7 +32,9 @@ public class MainActivity extends AppCompatActivity {
 
         List<Sensor> gravSensors = mSensorManager.getSensorList(Sensor.TYPE_ALL);
 
-
+        /*
+        * Reality Check to display list of available sensors
+        * */
         for(Sensor each : gravSensors){
             Log.e("Main_Activity",each.getName());
         }
@@ -43,10 +45,12 @@ public class MainActivity extends AppCompatActivity {
     public void startService(View view) {
         Toast.makeText(this, "Starting the service", Toast.LENGTH_SHORT).show();
         //Starting the background service
-        startService(new Intent(getBaseContext(), CollectorService.class));
+//        startService(new Intent(getBaseContext(), CollectorService.class));
+        /*To start multiple background services*/
         startService(new Intent(getBaseContext(), Activity_Tracker.class));
-        startService(new Intent(getBaseContext(), LocationReciever.class));
-////        Are u sure you want to clear the database?
+//        startService(new Intent(getBaseContext(), LocationReciever.class));
+
+////        Are u sure you want to clear the database? Firebase hack!!
 //        Log.e("db","clearing the database");
 //        UploadData d = new UploadData();
 //         d.clear_db();
@@ -57,9 +61,9 @@ public class MainActivity extends AppCompatActivity {
         Toast.makeText(this, "Stopping the service", Toast.LENGTH_SHORT).show();
         Log.d("------------------","ENding service");
         stopService(new Intent(getBaseContext(), Activity_Tracker.class));
-        stopService(new Intent(getBaseContext(), LocationReciever.class));
-        stopService(new Intent(getBaseContext(), HandleActivity.class));
-        stopService(new Intent(getBaseContext(), CollectorService.class));
+//        stopService(new Intent(getBaseContext(), LocationReciever.class));
+//        stopService(new Intent(getBaseContext(), HandleActivity.class));
+//        stopService(new Intent(getBaseContext(), CollectorService.class));
 
     }
 
